@@ -13,7 +13,7 @@ AllFilms.prototype.getData = function(){
     const request = new Request('https://ghibliapi.herokuapp.com/films');
     request.get((data)=>{
         this.data = data;
-        PubsSub.publish('AllFilms:all-films', this.data)
+        PubsSub.publish('AllFilms:all-films-ready', this.data)
         console.log(this.data);  
     });
 };
