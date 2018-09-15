@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('The DOM is loaded and JS in now running');
   
   // Ensure that any Listeners are defined before subscribers (i.e. the model)
-  const htmlDomElementToAppendOnTo = document.querySelector('#film-list');
-  const allFilmsView = new AllFilmsView(htmlDomElementToAppendOnTo);
+  const listContainer = document.querySelector('#film-list');
+  const allFilmsView = new AllFilmsView(listContainer);
   allFilmsView.bindEvents();
 
   //new up an AllFilms object and get data

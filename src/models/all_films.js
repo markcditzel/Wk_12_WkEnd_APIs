@@ -6,15 +6,14 @@ const Request = require ('../helpers/request.js');
 // Constructor
 
 const AllFilms = function (){
-    this.data = null;
+    this.filmsData = [];
 };
 
 AllFilms.prototype.getData = function(){
-    const request = new Request('https://ghibliapi.herokuapp.com/films');
+    const request = new Request('https://ghibliapi.herokuapp.com/films')
     request.get((data)=>{
-        this.data = data;
-        PubsSub.publish('AllFilms:all-films-ready', this.data)
-        console.log(this.data);  
+        PubsSub.publish('AllFilms:all-films-ready',data)
+        console.log(data);  
     });
 };
 

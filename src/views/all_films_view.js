@@ -7,8 +7,8 @@ const FilmDetailView = require('./film_detail_view.js');
 // CONSTRUCTOR
 // It will take an argument - which is an object that has been created by querySelector
 // The object represents an existing html element onto which new material will be injected into (appended on to)
-const AllFilmsView = function (htmlDomElementToAppendOnTo){
-    this.htmlDomElementToAppendOnTo = htmlDomElementToAppendOnTo;
+const AllFilmsView = function (container){
+    this.container = container;
 };
 
 // METHODS - attempt single responsibility
@@ -28,44 +28,36 @@ const AllFilmsView = function (htmlDomElementToAppendOnTo){
 // The allFilmsView object will have the 'htmlDomElementToAppendTo' as a property
 // The channel to listen for is coded
 // When the event is received the following functions / actions will occure
-// The property 'htmlDomElementToAppendOnTo' is cleared and defiend as a String
+// The property 'container' is cleared and defiend as a String
 // The event (event) associated with the channel is then passed on to a render function
 // => retrieveAndRenderElementfromArray
 
 AllFilmsView.prototype.bindEvents = function (){
     PubSub.subscribe('AllFilms:all-films-ready', (event) => {
-        // this.clearHtmlDomElementToAppendOnTo() // go to 1.1
         this.retriveElementFromArrayAndRender(event.detail); // go to 1.2
        
-        
     });
 };
-
-// (1.1) clear htmlDomElementToAppendOnTo and assign as String
-
-
-AllFilmsView.prototype.clearHtmlDomElementToAppendOnTo = function() {
-this.htmlDomElementToAppendOnTo.innerHTML = '';
-}// then return to (1) - next line after line calling the method
 
 // (1.2) Take event and create single objects from the array
 // Loop through the array of objects/elements
 // Call createFilmListItem()
 // Create a new view (filmDetailView) - call to another a Class
 // Then create a new film element - call to another Classes method
-// Append each element onto the 'htmlDomElementToAppendOnTo'
+// Append each element onto the 'container'
 
 AllFilmsView.prototype.retriveElementFromArrayAndRender = function (films) {
     films.forEach ((film) => {        
         const filmItem = this.createFilmListItem(film);
-        this.htmlDomElementToAppendOnTo.appendChild(filmItem);
+        this.container.appendChild(filmItem);
+       
     });
 }; 
 
 AllFilmsView.prototype.createFilmListItem = function (film){
     const filmDetailView = new FilmDetailView(); // this is a new class
-    const filmDetail = filmDetailView.createFilmElement(film);
-    return filmDetail;
+    const filmItem = filmDetailView.createFilmDetail(film);
+    return filmItem;
 };
 
 module.exports = AllFilmsView;

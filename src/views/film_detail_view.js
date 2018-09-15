@@ -6,7 +6,7 @@ const FilmDetailView = function(){
 // METHODS
 
 // Create the Film Details
-FilmDetailView.prototype.createFilmElement = function (filmObject){
+FilmDetailView.prototype.createFilmDetail = function (filmObject){
     const filmDetail = document.createElement('div');
     filmDetail.classList.add('munro-detail');
     
